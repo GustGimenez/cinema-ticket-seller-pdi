@@ -1,0 +1,6 @@
+@cinema_ticket_seller_pdi_HostAddress = http://localhost:5052
+
+GET {{cinema_ticket_seller_pdi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
