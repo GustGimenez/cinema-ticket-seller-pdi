@@ -8,8 +8,7 @@ namespace cinema_ticket_seller_pdi.Models
         {
         }
 
-        public DbSet<Customer> Customers { get; set; } = null!;
-        public DbSet<Employee> Employees { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<MovieTheater> MovieTheaters { get; set; } = null!;
         public DbSet<Movie> Movies { get; set; } = null!;
         public DbSet<MovieSession> MovieSessions { get; set; } = null!;
@@ -18,15 +17,15 @@ namespace cinema_ticket_seller_pdi.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<User>()
                 .Property(c => c.Active)
                 .HasDefaultValue(true);
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<User>()
                 .HasIndex(c => c.Document)
                 .IsUnique();
-            modelBuilder.Entity<Employee>()
-                .Property(c => c.Active)
-                .HasDefaultValue(true);
+            modelBuilder.Entity<User>()
+                .Property(c => c.Role)
+                .HasConversion<string>();
             modelBuilder.Entity<Movie>()
                 .Property(m => m.ParentalRating)
                 .HasConversion<string>();

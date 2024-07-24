@@ -29,11 +29,11 @@ namespace cinema_ticket_seller_pdi.Models
         [Column("created_at"), Required]
         public DateTime CreatedAt { get; set; }
 
-        [Column("movie_session_id"), Required]
-        public long CustomerId { get; set; }
+        [Column("user_id"), Required]
+        public long UserId { get; set; }
 
 
-        public Customer Customer { get; set; }
+        public User User { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

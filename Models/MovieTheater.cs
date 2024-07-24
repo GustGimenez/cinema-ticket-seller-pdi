@@ -14,7 +14,7 @@ namespace cinema_ticket_seller_pdi.Models
         public string Name { get; set; }
 
 
-        public ICollection<Employee> Employees { get; set; }
+        public ICollection<User> Employees { get; set; }
         public ICollection<Movie> Movies { get; set; }
     }
 }
