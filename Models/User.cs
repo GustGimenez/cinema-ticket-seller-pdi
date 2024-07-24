@@ -35,7 +35,7 @@ namespace cinema_ticket_seller_pdi.Models
         [Column("active"), Required]
         public Boolean Active { get; set; }
 
-        [Column("movie_theater_id"), Required]
+        [Column("movie_theater_id")]
         public long? MovieTheaterId { get; set; }
 
 

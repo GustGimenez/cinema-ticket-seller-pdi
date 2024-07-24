@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using cinema_ticket_seller_pdi.Models;
@@ -11,9 +12,11 @@ using cinema_ticket_seller_pdi.Models;
 namespace cinema_ticket_seller_pdi.Migrations
 {
     [DbContext(typeof(TicketSellerContext))]
-    partial class TicketSellerContextModelSnapshot : ModelSnapshot
+    [Migration("20240724142654_FixUserMovieTheaterId")]
+    partial class FixUserMovieTheaterId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
