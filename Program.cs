@@ -1,4 +1,6 @@
 using cinema_ticket_seller_pdi.Models;
+using cinema_ticket_seller_pdi.Repositories;
+using cinema_ticket_seller_pdi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<TicketSellerContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// TODO: extract to a IoC config file
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
