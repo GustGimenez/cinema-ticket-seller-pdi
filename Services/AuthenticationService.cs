@@ -2,9 +2,14 @@
 
 namespace cinema_ticket_seller_pdi.Services
 {
-    public class AuthenticationService(ITokenService tokenService) : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
-        private readonly ITokenService _tokenService = tokenService;
+        private readonly ITokenService _tokenService;
+
+        public AuthenticationService(ITokenService tokenService)
+        {
+            _tokenService = tokenService;
+        }
 
         public string? AuthenticateUser(User user, string password)
         {

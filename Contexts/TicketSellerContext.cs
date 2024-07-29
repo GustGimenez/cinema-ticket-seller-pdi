@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using cinema_ticket_seller_pdi.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace cinema_ticket_seller_pdi.Models
+namespace cinema_ticket_seller_pdi.Contexts
 {
     public class TicketSellerContext : DbContext
     {

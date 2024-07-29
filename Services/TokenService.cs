@@ -6,9 +6,14 @@ using System.Text;
 
 namespace cinema_ticket_seller_pdi.Services
 {
-    public class TokenService(IConfiguration configuration) : ITokenService
+    public class TokenService : ITokenService
     {
-        private readonly IConfiguration _configuration = configuration;
+        private readonly IConfiguration _configuration;
+
+        public TokenService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public string GenerateJWTForUser(User user)
         {

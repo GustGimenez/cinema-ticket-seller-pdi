@@ -7,10 +7,17 @@ namespace cinema_ticket_seller_pdi.Controllers
 {
     [Route("api/authentication")]
     [ApiController]
-    public class AuthenticationController(IAuthenticationService authenticationService, IUserRepository userRepository) : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
-        private readonly IAuthenticationService _authenticationService = authenticationService;
-        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly IUserRepository _userRepository;
+
+        public AuthenticationController(IAuthenticationService authenticationService, IUserRepository userRepository)
+        {
+            _authenticationService = authenticationService;
+            _userRepository = userRepository;
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> AuthenticateUser([FromBody] AuthenticateUserSchema authenticationSchema)

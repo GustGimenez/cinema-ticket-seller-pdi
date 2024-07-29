@@ -1,4 +1,5 @@
-﻿using cinema_ticket_seller_pdi.Models;
+﻿using cinema_ticket_seller_pdi.Contexts;
+using cinema_ticket_seller_pdi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema_ticket_seller_pdi.Repositories
