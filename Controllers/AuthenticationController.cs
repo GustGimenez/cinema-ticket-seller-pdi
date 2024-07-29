@@ -1,4 +1,5 @@
-﻿using cinema_ticket_seller_pdi.Repositories;
+﻿using cinema_ticket_seller_pdi.Exceptions;
+using cinema_ticket_seller_pdi.Repositories;
 using cinema_ticket_seller_pdi.Schemas;
 using cinema_ticket_seller_pdi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +27,14 @@ namespace cinema_ticket_seller_pdi.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                throw new NotFoundException("Usuário não encontrado");
             }
 
             var token = _authenticationService.AuthenticateUser(user, user.Password);
 
             if (token == null)
             {
-                return Unauthorized();
+                throw new UnauthorizedException("Dados incorretos");
             }
 
             return Ok(new { token });
