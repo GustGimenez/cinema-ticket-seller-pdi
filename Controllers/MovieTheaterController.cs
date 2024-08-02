@@ -26,5 +26,14 @@ namespace cinema_ticket_seller_pdi.Controllers
             // TODO: checkout what is the correct return for the first parameter
             return Created("", movieTheater);
         }
+
+        [HttpGet]
+        [Authorize(Roles = AuthorizationRolesConstants.Administrator)]
+        public async Task<IActionResult> GetAll()
+        {
+            var movieTheaters = await _movieTheaterService.GetAll();
+
+            return Ok(movieTheaters);
+        }
     }
 }

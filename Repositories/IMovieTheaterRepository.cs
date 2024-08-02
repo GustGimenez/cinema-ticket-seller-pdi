@@ -7,5 +7,7 @@ namespace cinema_ticket_seller_pdi.Repositories
         public Task<MovieTheater> Create(string name);
 
         public Task<MovieTheater?> FindByName(string name);
+
+        public Task<IEnumerable<MovieTheater>> GetAll();
     }
 }

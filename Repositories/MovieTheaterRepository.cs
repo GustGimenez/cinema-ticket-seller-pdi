@@ -32,5 +32,10 @@ namespace cinema_ticket_seller_pdi.Repositories
 
             return movieTheater;
         }
+
+        public async Task<IEnumerable<MovieTheater>> GetAll()
+        {
+            return await _context.MovieTheaters.ToListAsync();
+        }
     }
 }

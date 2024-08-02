@@ -31,6 +31,17 @@ namespace cinema_ticket_seller_pdi.Services
             };
         }
 
+        public async Task<IEnumerable<MovieTheaterDTO>> GetAll()
+        {
+            var movieTheaters = await _movieTheaterRepository.GetAll();
+
+            return movieTheaters.Select(mt => new MovieTheaterDTO
+            {
+                Id = mt.Id,
+                Name = mt.Name
+            });
+        }
+
         private async Task<bool> MovieTheaterExists(string name)
         {
             var movieTheater = await _movieTheaterRepository.FindByName(name);
