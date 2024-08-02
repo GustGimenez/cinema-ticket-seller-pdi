@@ -13,17 +13,16 @@ namespace cinema_ticket_seller_pdi.Services
 
         public string? AuthenticateUser(User user, string password)
         {
-            if (!HasCorrectPassword(user, password))
+            var hasCorrectPassword = CheckPassword(user, password);
+            if (!hasCorrectPassword)
             {
                 return null;
             }
 
-            var token = _tokenService.GenerateJWTForUser(user);
-
-            return token;
+            return _tokenService.GenerateJWTForUser(user);;
         }
 
-        private bool HasCorrectPassword(User user, string password)
+        private static bool CheckPassword(User user, string password)
         {
             // Encrypt password and compare
             return user.Password == password;

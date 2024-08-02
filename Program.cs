@@ -1,8 +1,6 @@
 using cinema_ticket_seller_pdi.Configs;
 using cinema_ticket_seller_pdi.Contexts;
 using cinema_ticket_seller_pdi.Filters;
-using cinema_ticket_seller_pdi.Repositories;
-using cinema_ticket_seller_pdi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +10,8 @@ builder.Services.AddDbContext<TicketSellerContext>(options => options.UseNpgsql(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-IoCConfig.RegisterServices(builder.Services);
+ServiceRegister.AddServicesAuthentication(builder.Services, builder.Configuration["Jwt:Key"]);
+ServiceRegister.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -23,6 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 app.UseAuthorization();
 app.MapControllers();
 
