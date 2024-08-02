@@ -10,6 +10,7 @@ namespace cinema_ticket_seller_pdi.Filters
         {
             var statusCode = context.Exception switch
             {
+                LogicValidationException => StatusCodes.Status400BadRequest,
                 UnauthorizedException => StatusCodes.Status401Unauthorized,
                 NotFoundException => StatusCodes.Status404NotFound,
                 _ => 500
