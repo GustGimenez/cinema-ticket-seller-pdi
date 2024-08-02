@@ -1,3 +1,4 @@
+using cinema_ticket_seller_pdi.Configs;
 using cinema_ticket_seller_pdi.Contexts;
 using cinema_ticket_seller_pdi.Filters;
 using cinema_ticket_seller_pdi.Repositories;
@@ -11,10 +12,7 @@ builder.Services.AddDbContext<TicketSellerContext>(options => options.UseNpgsql(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// TODO: extract to a IoC config file
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+IoCConfig.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
