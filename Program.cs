@@ -1,6 +1,7 @@
 using cinema_ticket_seller_pdi.Configs;
 using cinema_ticket_seller_pdi.Contexts;
 using cinema_ticket_seller_pdi.Filters;
+using cinema_ticket_seller_pdi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +23,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.UseAuthorization();
+
+app.UseMiddleware<JwtMiddleware>();
+
 app.MapControllers();
 
 app.Run();

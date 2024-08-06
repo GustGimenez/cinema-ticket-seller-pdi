@@ -19,15 +19,23 @@ namespace cinema_ticket_seller_pdi.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var claims = new List<Claim>
+            {
+                new Claim("document", user.Document),
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim("name", user.Name),
+            };
+
+            if (user.MovieTheaterId.HasValue)
+            {
+                claims.Add(new Claim("movie_theater_id", user.MovieTheaterId.ToString()));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(
-                [
-                    new Claim("Document", user.Document),
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
-                ]),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
             };
 
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);

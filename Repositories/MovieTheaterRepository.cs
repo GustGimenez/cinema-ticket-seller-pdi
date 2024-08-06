@@ -37,5 +37,10 @@ namespace cinema_ticket_seller_pdi.Repositories
         {
             return await _context.MovieTheaters.ToListAsync();
         }
+
+        public async Task<MovieTheater?> FindById(long id)
+        {
+            return await _context.MovieTheaters.FindAsync(id);
+        }
     }
 }

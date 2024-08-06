@@ -33,7 +33,7 @@ namespace cinema_ticket_seller_pdi.Models
         public Role Role { get; set; }
 
         [Column("active"), Required]
-        public Boolean Active { get; set; }
+        public bool Active { get; set; }
 
         [Column("movie_theater_id")]
         public long? MovieTheaterId { get; set; }
