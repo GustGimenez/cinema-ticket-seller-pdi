@@ -37,6 +37,7 @@ namespace cinema_ticket_seller_pdi.Repositories
                 Role = Role.Employee,
                 MovieTheaterId = createEmployeeSchema.MovieTheaterId,
                 BirthDate = createEmployeeSchema.BirthDate,
+                Password = createEmployeeSchema.Password,
             };
 
             _context.Users.Add(employee);
