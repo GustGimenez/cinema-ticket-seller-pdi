@@ -52,5 +52,23 @@ namespace cinema_ticket_seller_pdi.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = AuthorizationRolesConstants.Employee)]
+        public async Task<IActionResult> Deactivate(long id)
+        {
+            var userMovieTheaterId = User.Claims.FirstOrDefault(c => c.Type == "movie_theater_id")?.Value;
+
+            if (userMovieTheaterId == null)
+            {
+                throw new LogicValidationException("Funcionário deve pertencer a um cinema");
+            }
+
+            var movieTheaterId = long.Parse(userMovieTheaterId);
+
+            await _employeeService.Deactivate(movieTheaterId, id);
+
+            return Ok();
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace cinema_ticket_seller_pdi.Repositories
                 MovieTheaterId = createEmployeeSchema.MovieTheaterId,
                 BirthDate = createEmployeeSchema.BirthDate,
                 Password = createEmployeeSchema.Password,
+                Active = true,
             };
 
             _context.Users.Add(employee);
@@ -61,6 +62,21 @@ namespace cinema_ticket_seller_pdi.Repositories
             employee.Password = updateEmployeeSchema.Password;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> Deactivate(long id)
+        {
+            var employee = await FindById(id);
+
+            if (employee == null)
+            {
+                throw new NotFoundException("Funcionário não encontrado");
+            }
+
+            employee.Active = false;
+            await _context.SaveChangesAsync();
+
+            return employee;
         }
     }
 }

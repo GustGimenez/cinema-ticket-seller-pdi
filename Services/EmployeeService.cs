@@ -36,6 +36,25 @@ namespace cinema_ticket_seller_pdi.Services
             await _employeeRepository.Update(updateEmployeeSchema);
         }
 
+        public async Task<long> Deactivate(long userMovieTheaterId, long deactivateId)
+        {
+            var employee = await _employeeRepository.FindById(deactivateId);
+
+            if (employee == null)
+            {
+                throw new NotFoundException("Funcionário não encontrado");
+            }
+
+            if (employee.MovieTheaterId != userMovieTheaterId)
+            {
+                throw new LogicValidationException("Funcionário pertence à outra agência de cinema");
+            }
+
+            var deletedUser = await _employeeRepository.Deactivate(deactivateId);
+
+            return deletedUser.Id;
+        }
+
         private async Task ValidateCreation(CreateEmployeeSchema createEmployeeSchema)
         {
             var exists = await _employeeRepository.FindByDocument(createEmployeeSchema.Document);
