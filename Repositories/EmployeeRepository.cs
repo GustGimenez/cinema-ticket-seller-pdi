@@ -1,4 +1,5 @@
 using cinema_ticket_seller_pdi.Contexts;
+using cinema_ticket_seller_pdi.Exceptions;
 using cinema_ticket_seller_pdi.Models;
 using cinema_ticket_seller_pdi.Schemas;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace cinema_ticket_seller_pdi.Repositories
             _context = context;
         }
 
-        public async Task<User?> FindById(int id)
+        public async Task<User?> FindById(long id)
         {
             return await _context.Users.FirstOrDefaultAsync(
                 employee => employee.Role == Role.Employee && employee.Id == id
@@ -44,6 +45,22 @@ namespace cinema_ticket_seller_pdi.Repositories
             await _context.SaveChangesAsync();
 
             return employee;
+        }
+
+        public async Task Update(UpdateEmployeeSchema updateEmployeeSchema)
+        {
+            var employee = await FindById(updateEmployeeSchema.Id);
+
+            if (employee == null)
+            {
+                throw new NotFoundException("Funcionário não encontrado");
+            }
+
+            employee.Name = updateEmployeeSchema.Name;
+            employee.BirthDate = updateEmployeeSchema.BirthDate;
+            employee.Password = updateEmployeeSchema.Password;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

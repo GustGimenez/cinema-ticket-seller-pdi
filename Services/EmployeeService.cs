@@ -31,6 +31,11 @@ namespace cinema_ticket_seller_pdi.Services
             };
         }
 
+        public async Task Update(UpdateEmployeeSchema updateEmployeeSchema)
+        {
+            await _employeeRepository.Update(updateEmployeeSchema);
+        }
+
         private async Task ValidateCreation(CreateEmployeeSchema createEmployeeSchema)
         {
             var exists = await _employeeRepository.FindByDocument(createEmployeeSchema.Document);

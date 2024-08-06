@@ -36,5 +36,21 @@ namespace cinema_ticket_seller_pdi.Controllers
 
             return Created("", employee);
         }
+
+        [HttpPut]
+        [Authorize(Roles = AuthorizationRolesConstants.Employee)]
+        public async Task<IActionResult> Update([FromBody] UpdateEmployeeSchema updateEmployeeSchema)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+            if (userId == null || int.Parse(userId) != updateEmployeeSchema.Id)
+            {
+                throw new LogicValidationException("Funcionário só pode editar a si mesmo");
+            }
+
+            await _employeeService.Update(updateEmployeeSchema);
+
+            return NoContent();
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace cinema_ticket_seller_pdi.Services
                 new Claim("document", user.Document),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
                 new Claim("name", user.Name),
+                new Claim("id", user.Id.ToString()),
             };
 
             if (user.MovieTheaterId.HasValue)
