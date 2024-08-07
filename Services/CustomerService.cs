@@ -74,5 +74,17 @@ namespace cinema_ticket_seller_pdi.Services
                 Active = customer.Active,
             };
         }
+
+        public async Task Deactivate(long id)
+        {
+            var customer = await _customerRepository.FindById(id);
+
+            if (customer == null)
+            {
+                throw new NotFoundException("Cliente não encontrado");
+            }
+
+            await _customerRepository.Deactivate(id);
+        }
     }
 }

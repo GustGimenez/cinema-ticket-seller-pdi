@@ -59,5 +59,23 @@ namespace cinema_ticket_seller_pdi.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Deactivate(long id)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+            if (userRole != Role.Administrator.ToString() && userId != id.ToString())
+            {
+                return Forbid();
+            }
+
+            await _customerService.Deactivate(id);
+
+            return Ok();
+        }
     }
 }
