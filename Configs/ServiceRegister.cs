@@ -37,6 +37,8 @@ namespace cinema_ticket_seller_pdi.Configs
             services.AddScoped<IMovieTheaterService, MovieTheaterService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
     }
 }
