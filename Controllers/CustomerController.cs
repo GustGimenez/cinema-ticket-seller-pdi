@@ -41,5 +41,23 @@ namespace cinema_ticket_seller_pdi.Controllers
 
             return Created("", cratedCustomer);
         }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateCustomerSchema schema)
+        {
+            var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+            if (userRole != Role.Administrator.ToString() && userId != id.ToString())
+            {
+                return Forbid();
+            }
+
+            await _customerService.Update(id, schema);
+
+            return NoContent();
+        }
     }
 }

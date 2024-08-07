@@ -31,9 +31,9 @@ namespace cinema_ticket_seller_pdi.Services
             };
         }
 
-        public async Task Update(UpdateEmployeeSchema updateEmployeeSchema)
+        public async Task Update(long id, UpdateEmployeeSchema updateEmployeeSchema)
         {
-            await _employeeRepository.Update(updateEmployeeSchema);
+            await _employeeRepository.Update(id, updateEmployeeSchema);
         }
 
         public async Task<long> Deactivate(long userMovieTheaterId, long deactivateId)

@@ -1,4 +1,5 @@
 using cinema_ticket_seller_pdi.Contexts;
+using cinema_ticket_seller_pdi.Exceptions;
 using cinema_ticket_seller_pdi.Models;
 using cinema_ticket_seller_pdi.Schemas;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,24 @@ namespace cinema_ticket_seller_pdi.Repositories
             };
 
             _context.Users.Add(customer);
+            await _context.SaveChangesAsync();
+
+            return customer;
+        }
+
+        public async Task<User> Update(long id, UpdateCustomerSchema schema)
+        {
+            var customer = await FindById(id);
+
+            if (customer == null)
+            {
+                throw new NotFoundException("Cliente não encontrado");
+            }
+
+            customer.Name = schema.Name;
+            customer.BirthDate = schema.BirthDate;
+            customer.Password = schema.Password;
+
             await _context.SaveChangesAsync();
 
             return customer;

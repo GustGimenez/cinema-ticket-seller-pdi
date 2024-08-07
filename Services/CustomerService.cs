@@ -53,5 +53,26 @@ namespace cinema_ticket_seller_pdi.Services
                 Active = cratedCustomer.Active,
             };
         }
+
+        public async Task<CustomerDTO> Update(long id, UpdateCustomerSchema customerData)
+        {
+            var customer = await _customerRepository.FindById(id);
+
+            if (customer == null)
+            {
+                throw new NotFoundException("Cliente não encontrado");
+            }
+
+            await _customerRepository.Update(id, customerData);
+
+            return new CustomerDTO
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Document = customer.Document,
+                BirthDate = customer.BirthDate,
+                Active = customer.Active,
+            };
+        }
     }
 }

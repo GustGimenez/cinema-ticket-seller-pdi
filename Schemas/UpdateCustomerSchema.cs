@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cinema_ticket_seller_pdi.Schemas
 {
-    public class UpdateEmployeeSchema
+    public class UpdateCustomerSchema
     {
         [Required(ErrorMessage = "Nome é obrigatório")]
         [StringLength(100, ErrorMessage = "Nome deve ter no máximo 100 caracteres")]

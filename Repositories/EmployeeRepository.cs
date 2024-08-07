@@ -48,9 +48,9 @@ namespace cinema_ticket_seller_pdi.Repositories
             return employee;
         }
 
-        public async Task Update(UpdateEmployeeSchema updateEmployeeSchema)
+        public async Task Update(long id, UpdateEmployeeSchema updateEmployeeSchema)
         {
-            var employee = await FindById(updateEmployeeSchema.Id);
+            var employee = await FindById(id);
 
             if (employee == null)
             {

@@ -10,5 +10,7 @@ namespace cinema_ticket_seller_pdi.Repositories
         public Task<User?> FindByDocument(string document);
 
         public Task<User> Create(CreateCustomerSchema customer);
+
+        public Task<User> Update(long id, UpdateCustomerSchema customer);
     }
 }

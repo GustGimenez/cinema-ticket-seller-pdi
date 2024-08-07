@@ -7,7 +7,7 @@ namespace cinema_ticket_seller_pdi.Services
     {
         public Task<EmployeeDTO> Create(CreateEmployeeSchema createEmployeeSchema);
 
-        public Task Update(UpdateEmployeeSchema updateEmployeeSchema);
+        public Task Update(long id, UpdateEmployeeSchema updateEmployeeSchema);
 
         public Task<long> Deactivate(long userMovieTheaterId, long deactivateId);
     }

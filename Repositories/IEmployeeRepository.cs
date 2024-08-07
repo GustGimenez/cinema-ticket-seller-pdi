@@ -11,7 +11,7 @@ namespace cinema_ticket_seller_pdi.Repositories
 
         public Task<User> Create(CreateEmployeeSchema createEmployeeSchema);
 
-        public Task Update(UpdateEmployeeSchema updateEmployeeSchema);
+        public Task Update(long id, UpdateEmployeeSchema updateEmployeeSchema);
 
         public Task<User> Deactivate(long id);
     }    
