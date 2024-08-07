@@ -1,5 +1,6 @@
 using cinema_ticket_seller_pdi.Contexts;
 using cinema_ticket_seller_pdi.Models;
+using cinema_ticket_seller_pdi.Schemas;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema_ticket_seller_pdi.Repositories
@@ -18,6 +19,31 @@ namespace cinema_ticket_seller_pdi.Repositories
             return await _context.Users.FirstOrDefaultAsync(
                 customer => customer.Id == id && customer.Role == Role.Customer
             );
+        }
+
+        public async Task<User?> FindByDocument(string document)
+        {
+            return await _context.Users.FirstOrDefaultAsync(
+                customer => customer.Document == document && customer.Role == Role.Customer
+            );
+        }
+
+        public async Task<User> Create(CreateCustomerSchema schema)
+        {
+            var customer = new User
+            {
+                Name = schema.Name,
+                Document = schema.Document,
+                BirthDate = schema.BirthDate,
+                Role = Role.Customer,
+                Active = true,
+                Password = schema.Password,
+            };
+
+            _context.Users.Add(customer);
+            await _context.SaveChangesAsync();
+
+            return customer;
         }
     }
 }

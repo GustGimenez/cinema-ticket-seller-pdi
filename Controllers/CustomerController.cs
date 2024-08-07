@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using cinema_ticket_seller_pdi.DTOs;
 using cinema_ticket_seller_pdi.Models;
+using cinema_ticket_seller_pdi.Schemas;
 using cinema_ticket_seller_pdi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,14 @@ namespace cinema_ticket_seller_pdi.Controllers
             }
 
             return await _customerService.FindById(id);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CustomerDTO>> Create([FromBody] CreateCustomerSchema schema)
+        {
+            var cratedCustomer = await _customerService.Create(schema);
+
+            return Created("", cratedCustomer);
         }
     }
 }

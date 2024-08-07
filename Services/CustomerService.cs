@@ -1,6 +1,7 @@
 using cinema_ticket_seller_pdi.DTOs;
 using cinema_ticket_seller_pdi.Exceptions;
 using cinema_ticket_seller_pdi.Repositories;
+using cinema_ticket_seller_pdi.Schemas;
 
 namespace cinema_ticket_seller_pdi.Services
 {
@@ -29,6 +30,27 @@ namespace cinema_ticket_seller_pdi.Services
                 Document = customer.Document,
                 BirthDate = customer.BirthDate,
                 Active = customer.Active,
+            };
+        }
+
+        public async Task<CustomerDTO> Create(CreateCustomerSchema customer)
+        {
+            var existingCustomer = await _customerRepository.FindByDocument(customer.Document);
+
+            if (existingCustomer != null)
+            {
+                throw new LogicValidationException("Cliente já cadastrado");
+            }
+
+            var cratedCustomer = await _customerRepository.Create(customer);
+
+            return new CustomerDTO
+            {
+                Id = cratedCustomer.Id,
+                Name = cratedCustomer.Name,
+                Document = cratedCustomer.Document,
+                BirthDate = cratedCustomer.BirthDate,
+                Active = cratedCustomer.Active,
             };
         }
     }
