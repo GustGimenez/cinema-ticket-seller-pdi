@@ -23,7 +23,6 @@ namespace cinema_ticket_seller_pdi.Controllers
         {
             var movieTheater = await _movieTheaterService.Create(movieTheaterDTO.Name);
 
-            // TODO: checkout what is the correct return for the first parameter
             return Created("", movieTheater);
         }
 

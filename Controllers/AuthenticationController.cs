@@ -19,7 +19,6 @@ namespace cinema_ticket_seller_pdi.Controllers
             _userRepository = userRepository;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AuthenticateUser([FromBody] AuthenticateUserSchema authenticationSchema)
         {

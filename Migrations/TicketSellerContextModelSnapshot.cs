@@ -52,7 +52,7 @@ namespace cinema_ticket_seller_pdi.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("movies");
+                    b.ToTable("movies", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.MovieSession", b =>
@@ -94,7 +94,7 @@ namespace cinema_ticket_seller_pdi.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("movie_sessions");
+                    b.ToTable("movie_sessions", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.MovieTheater", b =>
@@ -113,7 +113,7 @@ namespace cinema_ticket_seller_pdi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("movie_theaters");
+                    b.ToTable("movie_theaters", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.Order", b =>
@@ -152,7 +152,7 @@ namespace cinema_ticket_seller_pdi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("orders");
+                    b.ToTable("orders", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.Ticket", b =>
@@ -178,7 +178,7 @@ namespace cinema_ticket_seller_pdi.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("tickets");
+                    b.ToTable("tickets", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.User", b =>
@@ -231,7 +231,7 @@ namespace cinema_ticket_seller_pdi.Migrations
 
                     b.HasIndex("MovieTheaterId");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("cinema_ticket_seller_pdi.Models.Movie", b =>
