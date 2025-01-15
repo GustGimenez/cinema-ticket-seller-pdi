@@ -1,6 +1,7 @@
 using Application.Contexts;
 using Application.Models;
 using Application.Repositories;
+using Application.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Tests.Application.Repositories;
@@ -8,7 +9,7 @@ namespace Tests.Application.Repositories;
 public class UserRepositoryTests
 {
     private readonly TicketSellerContext _context;
-    private readonly UserRepository _repository;
+    private readonly IUserRepository _repository;
 
     public UserRepositoryTests()
     {

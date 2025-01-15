@@ -1,32 +1,32 @@
 using Application.Contexts;
 using Application.Models;
 using Application.Repositories;
+using Application.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Frameworks;
 
 namespace Tests.Application.Repositories;
 
 public class MovieTheaterRepositoryTest
 {
-    private const string MovieTheaterName =  "MovieTheater_1";
+    private const string MovieTheaterName = "MovieTheater_1";
     private readonly TicketSellerContext _context;
-    private readonly MovieTheaterRepository _movieTheaterRepository;
+    private readonly IMovieTheaterRepository _movieTheaterRepository;
 
     public MovieTheaterRepositoryTest()
     {
         var options = new DbContextOptionsBuilder<TicketSellerContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
-        
+
         _context = new TicketSellerContext(options);
         _movieTheaterRepository = new MovieTheaterRepository(_context);
     }
-    
+
     [Fact]
     public async Task Create_ShouldReturnMovieTheater_WhenMovieTheaterIsCreated()
     {
         var createdMovieTheater = await _movieTheaterRepository.Create(MovieTheaterName);
-        
+
         Assert.NotNull(createdMovieTheater);
         Assert.Equal(MovieTheaterName, createdMovieTheater.Name);
     }
@@ -41,23 +41,23 @@ public class MovieTheaterRepositoryTest
 
         _context.MovieTheaters.Add(movieTheater);
         await _context.SaveChangesAsync();
-        
+
         var result = await _movieTheaterRepository.FindByName(MovieTheaterName);
 
         Assert.NotNull(result);
         Assert.Equal(MovieTheaterName, result.Name);
     }
-    
+
     [Fact]
     public async Task FindByName_ShouldReturnNull_WhenMovieTheaterDoesNotExist()
     {
         await ClearDatabase();
-        
+
         var result = await _movieTheaterRepository.FindByName(MovieTheaterName);
 
         Assert.Null(result);
     }
-    
+
     [Fact]
     public async Task GetAll_ShouldReturnAllMovieTheaters()
     {
@@ -77,12 +77,12 @@ public class MovieTheaterRepositoryTest
         await ClearDatabase();
         _context.MovieTheaters.AddRange(movieTheater1, movieTheater2, movieTheater3);
         await _context.SaveChangesAsync();
-        
+
         var result = await _movieTheaterRepository.GetAll();
-        
+
         Assert.Equal(3, result.Count());
     }
-    
+
     [Fact]
     public async Task FindById_ShouldReturnMovieTheater_WhenMovieTheaterExists()
     {
@@ -93,18 +93,18 @@ public class MovieTheaterRepositoryTest
 
         _context.MovieTheaters.Add(movieTheater);
         await _context.SaveChangesAsync();
-        
+
         var result = await _movieTheaterRepository.FindById(movieTheater.Id);
 
         Assert.NotNull(result);
         Assert.Equal(MovieTheaterName, result.Name);
     }
-    
+
     [Fact]
     public async Task FindById_ShouldReturnNull_WhenMovieTheaterDoesNotExist()
     {
         await ClearDatabase();
-        
+
         var result = await _movieTheaterRepository.FindById(1);
 
         Assert.Null(result);
